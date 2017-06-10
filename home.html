@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>News In The .Net</title>
+    <link rel="stylesheet" href="css/customstyles.css">
+</head>
+
+<body>
+    <div class="full-page-container">
+        <div class="header-container">
+            <nav>
+                <div class="top-nav-row" id="login-nav">
+                    <ul class="top-nav-list">
+                        <li class="top-nav-titles"><i class="fa fa-newspaper-o"></i> <a href="">News In The .Net</a></li>
+                        <li class="top-nav-titles pull-right" id="registerNav">
+                            <a href="#/signup" id="registerHref" data-page="register-section" onclick="getRegister(this)">Sign Up</a>
+                        </li>
+                        <li class="top-nav-titles pull-right" id="loginNav">
+                            
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="content-container">
+            <div class="side-nav-container">
+                <div class="left-nav-content">
+                    <ul class="left-nav-list" id="side-nav">
+                        <li class="left-nav-title"><a href="#/general" id="getCategory" data-sidebar-name="general" data-page="source_byCategory" onclick="getCategory(this)">Headlines</a></li>
+                        <li class="left-nav-title"><a href="#/politics" id="getCategory" data-sidebar-name="politics" data-page="source_byCategory" onclick="getCategory(this)">Politics</a></li>
+                        <li class="left-nav-title"><a href="#/sports" id="getCategory" data-sidebar-name="sports" data-page="source_byCategory" onclick="getCategory(this)">Sports</a></li>
+                        <li class="left-nav-title"><a href="#/business" id="getCategory" data-sidebar-name="business" data-page="source_byCategory" onclick="getCategory(this)">Business</a></li>
+                        <li class="left-nav-title"><a href="#/entertainment" id="getCategory" data-sidebar-name="entertainment" data-page="source_byCategory" onclick="getCategory(this)">Entertainment</a></li>
+                        <li class="left-nav-title"><a href="#/music" id="getCategory" data-sidebar-name="music" data-page="source_byCategory" onclick="getCategory(this)">Music</a></li>
+                        <li class="left-nav-title"><a href="#/science-and-nature" id="getCategory" data-sidebar-name="science-and-nature" data-page="source_byCategory" onclick="getCategory(this)">Science</a></li>
+                        <li class="left-nav-title"><a href="#/technology" id="getCategory" data-sidebar-name="technology" data-page="source_byCategory" onclick="getCategory(this)">Technology</a></li>
+                        <li class="left-nav-title"><a href="#/gaming" id="getCategory" data-sidebar-name="gaming" data-page="source_byCategory" onclick="getCategory(this)">Gaming</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- display data feed error -->
+            <div class="error-element" id="error-element" style="display:none;">
+                    This error message is displayed only for IE 11 or older versions on Windows 7 or 8 operating system where
+                    CORS is not fully supported as compared to other modern browsers.
+                    Upgrading to Windows 10 resolves this issue.
+            </div>
+            <div class="main-section-container page-list" id="mainContainer">
+                <!-- Source List -->
+                <div class="source-list" id="source_list" data-section="source-list"></div>
+                <!-- show list of all news sources -->
+                    
+                <div class="source-by-category" id="source_byCategory" data-section="source_byCategory"></div>
+                <!-- show list of news sources in category -->
+
+                <!-- Articles List -->
+                <div class="news-list" id="news-list" data-section="news-list"></div>
+                <!-- show list of articles   --> 
+
+                <!-- news item details -->
+                <div class="news-details" id="news-details" data-section="news-details" style="display:none"> </div>
+                    
+                <!-- show login page -->
+                <div class="login-section" id="login-section" data-section="login-section" style="display:none">
+                    
+                    <h2>Login Form</h2>
+                    <form name="loginform" method="post" onsubmit="return loginForm()">
+                        <div class="form-input">
+                            <label>First Name</label>
+                            <input type="text" name="firstnameLogin" min="2" autofocus required /> 
+                            <span id="firstnameError" class="validation-error"></span>
+                        </div>  <br> 
+                        <div class="form-input">
+                            <label>Last Name</label>
+                            <input type="text" name="lastnameLogin" min="2" required> 
+                            <span id="lastnameError" class="validation-error"></span>
+                        </div> <br> 
+                        <div class="form-input">
+                            <label>Email</label>
+                            <input type="email" name="emailLogin" required>
+                            <span id="emailError" class="validation-error"></span>
+                        </div>  <br> 
+                        <div class="form-input">
+                            <label>Password</label>
+                            <input type="password" name="passwordLogin" min="7" required> 
+                            <span id="passwordError" class="validation-error"></span>
+                        </div> <br>
+                        <input type="submit">
+                    </form>
+                </div>
+                <!-- show register page -->
+                <div class="register-section" id="register-section" data-section="register-section" style="display:none">
+                <h2>Sign Up Form</h2>
+                    <form name="registerform"  method="post" onsubmit="return registrationForm()">
+                        <div class="form-input">
+                            <label><b>First Name</b></label><input type="text" name="firstnameRegister" min="2" autofocus required>
+                        </div> <br> 
+                        <div class="form-input">
+                            <label><b>Last Name</b></label><input type="text" name="lastnameRegister" min="2" required>
+                        </div> <br> 
+                        <div class="form-input">
+                            <label><b>Email</b></label><input type="email" name="emailRegister" required>
+                        </div> <br> 
+                        <div class="form-input">
+                            <label><b>Password</b></label><input type="password" name="passwordRegister" min="7" required>
+                        </div> <br>
+                        <div class="form-input">
+                            <input type="checkbox" name="termsRegister" value="terms" required>I agree to terms/privacy policy
+                        </div> <br>
+                        <input type="submit">
+                    </form>
+
+                </div>
+                <!-- show about page -->
+                <div class="about-section" id="about-section" data-section="about_section" style="display:none"></div>
+
+                <!-- show terms page -->
+                <div class="terms-section" id="terms-section" data-section="terms-section" style="display:none"></div>
+
+                <!-- show privacy policy page -->
+                <div class="privacy-section" id="privacy-section" data-section="privacy-section" style="display:none"></div>
+                
+                <!-- show newsApi page -->
+                <div class="newsApi-section" id="newsApi-section" data-section="newsApi-section" style="display:none"></div>
+
+            </div>
+            <!-- footer links -->
+            <div class="footer">
+                <ul class="footer-container">
+                    <li><a href="#/newsApi" data-page="newsApi" onclick="getContent(this)">Data service courtesy of NewsAPI.org</a></li>
+                    <li><a href="#/about" data-page="about" onclick="getContent(this)">About</a> </li>
+                    <li><a href="#/privacy" data-page="privacy" onclick="getContent(this)">Privacy</a></li>
+                    <li><a href="#/terms" data-page="terms" onclick="getContent(this)">Terms</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    
+    </div>
+    <script src="js/showHideElements.js"></script>
+    <script src="js/newsModule.js"></script>
+    <script src="js/getJSONnews.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/sources.js"></script>
+    <script src="js/category.js"></script>
+    <script src="js/articles.js"></script>
+    <script src="js/staticPages.js"></script>
+    <script src="js/commentData.js"></script>
+    <script src="js/stateManager.js"></script>
+
+    <!-- show US news sources  -->
+    <script id="sources-list-item" type="text/template">
+
+        <div class="source-list-item border-shadding" id="source-list-item">
+            <div class="source-list-item-header">
+                <h1>                 
+                    <a href="#/{{sourceId}}" id="getSourceCategoryResults"   
+                    onclick="getSourceDetails(this)"
+                    data-page="news-list" 
+                    data-source-sort="{{sourceSort}}"
+                    data-source-id="{{sourceId}}">{{sourceName}} </a>
+                </h1> 
+            </div>
+            <div class="">
+                <div class="source-list-item-category">
+                    <h4> 
+                        <a href="#/news-source/{{sourceId}}" id="getSourceCategoryResults"   
+                        onclick="getSourceCategoryResults(this)" 
+                        data-source-sort="{{sourceSort}}"
+                        data-page="news-list" 
+                        data-source-id="{{sourceId}}"> {{sourceSort}} news from {{sourceName}} </a>
+                    </h4>  
+                </div>
+                    <div class="source-list-item-sort-option"></div>
+                </div>
+            </div>
+        </div>
+                 
+    </script>
+    
+    <!-- show US news sources -->
+    <script id="sources-by-category-section-template" type="text/template">
+
+        <div class="source-list-item border-shadding" id="source-list-item">
+            <div class="source-list-item-header">
+                <h1>                 
+                    <a href="#/{{sourceId}}" id="getSourceCategoryResults"   
+                    onclick="getSourceDetails(this)"
+                    data-page="news-list" 
+                    data-source-sort="{{sourceSort}}"
+                    data-source-id="{{sourceId}}">{{sourceName}}</a>
+                </h1> 
+            </div>
+            <div class="">
+                <div class="source-list-item-category">
+                    <h4> 
+                        <a href="#/news-source/{{sourceId}}" id="getSourceCategoryResults"   
+                        onclick="getSourceCategoryResults(this)"
+                        data-page="news-list" 
+                        data-source-sort="{{sourceSort}}"
+                        data-source-id="{{sourceId}}"> Get the {{sourceSort}} news from {{sourceName}} </a>
+                    </h4>  
+                </div>
+                    <div class="source-list-item-sort-option">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- show source detail -->
+    <script id="source-detail-template" type="text/template">
+
+        <div class="source-list-item border-shadding page-width-section" id="source-list-item">
+            <div class="source-list-item-header">
+                <h1>{{sourceName}}</h1>
+            </div>
+            <div class="source-list-item-description">
+                <p> {{sourceDescription}} </p>
+            </div>
+            <div class="">
+                <div class="source-list-item-category">
+                    <h4> 
+                        <a href="#/news-source/{{sourceId}}" id="getSourceCategoryResults"   
+                        onclick="getSourceCategoryResults(this)"
+                        data-page="news-list" 
+                        data-source-sort="{{sourceSort}}"
+                        data-source-id="{{sourceId}}"> Get the {{sourceSort}} news in {{sourceCategory}} </a>
+                    </h4>  
+                </div>
+                    <div class="source-list-item-sort-option"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- show list of articles -->
+    <script id="articles-list-item" type="text/template">
+        <div class="article-content-list-item" id="article-by-list-item">
+            <div class="article-img-thumbnail">
+                <img width="150" height="100" src="{{articleImage}}" class="article-image " alt="placeholder">
+            </div>
+            <div class="article-headline">
+                <span id="title">
+                    <a href="#/news-source/{{articleSource}}/article-title/{{articleSlugTitle}}"
+                        data-article-id="{{articleTitle}}"
+                        data-page="news-details"
+                        onclick="getArticleDetails(this)" >
+                        {{articleTitle}}  
+                    </a>
+                </span>
+                <br>
+                <span>By </span>
+                <span id="author">
+                    {{articleAuthor}}
+                </span>
+                <span> From </span>
+                <span id="article_url">
+                    <a href="#/news-source/{{articleSource}}"  
+                    onclick="getSourceDetails(this)"
+                    data-page="news-list" 
+                    data-source-id="{{articleSource}}">{{articleSource}} </a>
+                </span>
+                <span id="pubDate"></span>
+            </div>
+            <div class="article-body-description">
+                <p>{{articleDescription}}</p>
+            </div>
+        </div>
+    </script>
+    <!-- show article detail -->
+    <script id="news-item-detail"  type="text/template">
+
+        <div class="article-img-thumbnail">
+            <img width="100%" height="100%" src="{{articleDetailsUrlToImage}}" class="article-image " alt="">
+        </div>
+        <div class="article-headline">
+            <span id="title">
+                    <a href="{{articleDetailsUrl}}" target="_blank">{{articleDetailsTile}}</a>
+                </span>
+            <br>
+            <span>By </span>
+            <span id="author">{{articleDetailsAuthor}}</span>
+            <span> From </span>
+                <a href="#/{{articleDetailsSource}}">
+                    <span id="article_url">
+
+                    <a href="#/{{articleDetailsSource}}"  
+                    onclick="getSourceDetails(this)"
+                    data-page="news-list" 
+                    data-source-id="{{articleDetailsSource}}">{{articleDetailsSource}} </a>
+                    </span>
+                </a>
+            <span id="pubDate"></span>
+        </div>
+        <div class="article-body-description">{{articleDetailsDescription}}</div>
+        <div class="content-sep-space"></div>
+        <br>
+        <div class="comments-list" id="comments-list">
+            <h3>Comments (coming soon)</h3>
+            <div >
+                <span class="commentAuthor"> commentAuthor</span>
+                <span class="commentDate"> commentDate </span>
+                <span class="commentReply">Reply</span>
+                <br>
+                <span class="commentBody"> commentBody </span>
+            </div>
+        </div>
+
+        <!-- show comments in article page -->
+        <div id="comments-form"></div>
+    </script>
+    <!-- show Login Links -->
+    <script id="login-nav-section-template"  type="text/template">
+            <a href="#/login" id="loginHref" data-page="login-section" onclick="login(this)">Login</a>
+    </script>
+    <!--
+        show Logout Links
+    -->
+
+    <script id="logout-nav-section-template"  type="text/template">
+            <a href="#/logout" id="loginHref" data-page="login-section" onclick="logout(this)">Logout</a>
+    </script>
+
+    <script>  
+        // variables for articles script section
+        var articlesTemplate = document.getElementById("articles-list-item").innerHTML;
+        var articleDataHTML = ""; 
+        
+        // variables for sources script section
+        var sourcesTemplate = document.getElementById("sources-list-item").innerHTML;
+        var sourcesDataHTML = ""; 
+
+        // variables for source details section
+        var sourceDetailsTemplate = document.getElementById("source-detail-template").innerHTML;
+        var sourceDetailsDataHTML = ""; 
+
+        // variables for sources script section
+        var sourcesByCatTemplate = document.getElementById("sources-by-category-section-template").innerHTML;
+        var sourcesByCatDataHTML = ""; 
+
+        // variables for news details script section
+        var articleDetailsTemplate = document.getElementById("news-item-detail").innerHTML;
+        var articleDetailsDataHTML = ""; 
+
+        // login Nav script section
+        var loginNavTemplate = document.getElementById("login-nav-section-template").innerHTML;
+
+        // logout nav script section
+        var logoutNavTemplate = document.getElementById("logout-nav-section-template").innerHTML;
+
+        var LangVal = "en";
+        var CountryVal = "us";
+        console.log("default to english");
+        
+        window.onload = userState;
+
+        function removeOldElementsByID(elemID) {
+            articleDataHTML = "";
+            var newsList = document.getElementById(elemID);
+            while (newsList.firstChild !== null) {
+                newsList.removeChild(newsList.firstChild);
+            }
+        }
+
+        hashNavigation();
+        window.addEventListener("hashchange", hashNavigation);
+
+
+    </script>
+</body>
+
+</html>
